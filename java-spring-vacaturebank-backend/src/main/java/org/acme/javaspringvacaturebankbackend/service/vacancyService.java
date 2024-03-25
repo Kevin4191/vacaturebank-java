@@ -18,6 +18,10 @@ public class vacancyService {
 
   @Autowired
   vacancyRepository vacancyRepository;
+
+  // employerRepository employerRepository;
+  int accountId = 1;
+  int selectedBranch = 1;
   // format for current timestamp
   private static final SimpleDateFormat sdf3 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
   Timestamp timestamp = new Timestamp(System.currentTimeMillis());
@@ -38,15 +42,14 @@ public class vacancyService {
       // Check if vacancy fields are left empty
       if ((vacancy.getVacancyName().isEmpty()) || (vacancy.getVacancyDescription().isEmpty())
           || (vacancy.getVacancySalary().isEmpty()) || (vacancy.getVacancyEducation().isEmpty())
-          || (vacancy.getVacancy_location().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
-              | (vacancy.getVacancyUploadDate().isEmpty())
+          || (vacancy.getVacancyLocation().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
+          || (vacancy.getVacancyUploadDate().isEmpty())
           || (vacancy.getVacancyBranchesBranchId() == 0) || (vacancy.getVacancyEmployersEmployerId() == 0)) {
         throw new IllegalArgumentException("Fields cannot be empty");
       }
       // check if vacancy fields contain numbers or special characters
       if ((!StringUtils.isAlphaSpace(vacancy.getVacancyName())
-          || (!StringUtils.isAlphaSpace(vacancy.getVacancyEducation())
-              || (!StringUtils.isAlphaSpace(vacancy.getVacancy_location()))))) {
+          || (!StringUtils.isAlphaSpace(vacancy.getVacancyEducation())))) {
 
         throw new IllegalArgumentException("Name cannot contain numbers or special characters");
       }
@@ -54,6 +57,10 @@ public class vacancyService {
     } catch (Exception e) {
       throw new IllegalArgumentException(e);
     }
+    // set vacancyBranchesBranchId
+    vacancy.setVacancyBranchesBranchId(selectedBranch);
+    // set vacancyEmployersEmployerId
+    vacancy.setVacancyEmployersEmployerId(accountId);
     // set current time stamp
     vacancy.setVacancyUploadDate(sdf3.format(timestamp));
     return vacancyRepository.save(vacancy);

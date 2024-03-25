@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
@@ -24,24 +25,31 @@ public class vacancyModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Generate random id
     @Column(name = "vacancies_id")
-    private int vacancyId;
+    private Integer vacancyId;
+    @NotBlank
     @Column(name = "vacancy_name")
     private String vacancyName;
+    @NotBlank
     @Column(name = "vacancy_description")
     private String vacancyDescription;
+    @NotBlank
     @Column(name = "vacancy_salary")
     private String vacancySalary;
+    @NotBlank
     @Column(name = "vacancy_education")
     private String vacancyEducation;
     @Column(name = "vacancy_location")
-    private String vacancy_location;
+    @NotBlank
+    private String vacancyLocation;
     @Column(name = "vacancy_workinghours")
+    @NotBlank
     private String vacancyWorkingHours;
     @Column(name = "vacancy_upload_date")
+    @NotBlank
     private String vacancyUploadDate;
     @Column(name = "branches_branch_id")
-    private int vacancyBranchesBranchId;
+    private Integer vacancyBranchesBranchId;
     @Column(name = "employers_employer_id")
-    private int vacancyEmployersEmployerId;
+    private Integer vacancyEmployersEmployerId;
 
 }
