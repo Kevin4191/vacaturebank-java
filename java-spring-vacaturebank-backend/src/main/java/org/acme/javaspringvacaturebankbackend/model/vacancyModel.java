@@ -2,7 +2,8 @@ package org.acme.javaspringvacaturebankbackend.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,7 @@ import lombok.Setter;
 public class vacancyModel {
     // Specify which columns needs to be used from the db
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Generate random id
     @Column(name = "vacancies_id")
     private int vacancyId;
     @Column(name = "vacancy_name")
