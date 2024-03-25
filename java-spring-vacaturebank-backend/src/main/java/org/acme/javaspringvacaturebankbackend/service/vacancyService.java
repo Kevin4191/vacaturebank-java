@@ -38,15 +38,14 @@ public class vacancyService {
       // Check if vacancy fields are left empty
       if ((vacancy.getVacancyName().isEmpty()) || (vacancy.getVacancyDescription().isEmpty())
           || (vacancy.getVacancySalary().isEmpty()) || (vacancy.getVacancyEducation().isEmpty())
-          || (vacancy.getVacancy_location().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
-              | (vacancy.getVacancyUploadDate().isEmpty())
+          || (vacancy.getVacancy_location().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())   
+          || (vacancy.getVacancyUploadDate().isEmpty())
           || (vacancy.getVacancyBranchesBranchId() == 0) || (vacancy.getVacancyEmployersEmployerId() == 0)) {
         throw new IllegalArgumentException("Fields cannot be empty");
       }
       // check if vacancy fields contain numbers or special characters
       if ((!StringUtils.isAlphaSpace(vacancy.getVacancyName())
-          || (!StringUtils.isAlphaSpace(vacancy.getVacancyEducation())
-              || (!StringUtils.isAlphaSpace(vacancy.getVacancy_location()))))) {
+          || (!StringUtils.isAlphaSpace(vacancy.getVacancyEducation())))) {
 
         throw new IllegalArgumentException("Name cannot contain numbers or special characters");
       }
