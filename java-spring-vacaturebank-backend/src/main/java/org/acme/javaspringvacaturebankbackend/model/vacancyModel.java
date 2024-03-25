@@ -22,7 +22,7 @@ import lombok.Setter;
 public class vacancyModel {
     // Specify which columns needs to be used from the db
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Generate random id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Generate random id
     @Column(name = "vacancies_id")
     private int vacancyId;
     @Column(name = "vacancy_name")
