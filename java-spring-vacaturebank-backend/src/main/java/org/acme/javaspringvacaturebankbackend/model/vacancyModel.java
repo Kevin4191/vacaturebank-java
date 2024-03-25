@@ -38,14 +38,14 @@ public class vacancyModel {
     @NotBlank
     @Column(name = "vacancy_education")
     private String vacancyEducation;
+    @NotBlank
     @Column(name = "vacancy_location")
-    @NotBlank
     private String vacancyLocation;
+    @NotBlank
     @Column(name = "vacancy_workinghours")
-    @NotBlank
     private String vacancyWorkingHours;
-    @Column(name = "vacancy_upload_date")
     @NotBlank
+    @Column(name = "vacancy_upload_date")
     private String vacancyUploadDate;
     @Column(name = "branches_branch_id")
     private Integer vacancyBranchesBranchId;

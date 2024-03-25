@@ -42,7 +42,7 @@ public class vacancyService {
       // Check if vacancy fields are left empty
       if ((vacancy.getVacancyName().isEmpty()) || (vacancy.getVacancyDescription().isEmpty())
           || (vacancy.getVacancySalary().isEmpty()) || (vacancy.getVacancyEducation().isEmpty())
-          || (vacancy.getVacancy_location().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
+          || (vacancy.getVacancyLocation().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
               | (vacancy.getVacancyUploadDate().isEmpty())
           || (vacancy.getVacancyBranchesBranchId() == 0) || (vacancy.getVacancyEmployersEmployerId() == 0)) {
         throw new IllegalArgumentException("Fields cannot be empty");
