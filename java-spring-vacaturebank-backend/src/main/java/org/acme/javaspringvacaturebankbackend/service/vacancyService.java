@@ -43,7 +43,7 @@ public class vacancyService {
       if ((vacancy.getVacancyName().isEmpty()) || (vacancy.getVacancyDescription().isEmpty())
           || (vacancy.getVacancySalary().isEmpty()) || (vacancy.getVacancyEducation().isEmpty())
           || (vacancy.getVacancyLocation().isEmpty()) || (vacancy.getVacancyWorkingHours().isEmpty())
-              | (vacancy.getVacancyUploadDate().isEmpty())
+              || (vacancy.getVacancyUploadDate().isEmpty())
           || (vacancy.getVacancyBranchesBranchId() == 0) || (vacancy.getVacancyEmployersEmployerId() == 0)) {
         throw new IllegalArgumentException("Fields cannot be empty");
       }
