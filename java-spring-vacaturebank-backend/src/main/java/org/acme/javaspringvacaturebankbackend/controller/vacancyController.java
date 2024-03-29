@@ -27,7 +27,7 @@ public class vacancyController {
     public Iterable<vacancyModel> getAllVacancies() {
         return vacancyService.getVacancies();
     }
-
+    
     // POST method to post vacancies
     @PostMapping
     public vacancyModel postVacancy(@RequestBody vacancyModel vacancy) {

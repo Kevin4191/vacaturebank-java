@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
 @RequestMapping(value = "/api/v1/employers")
 public class employerController {
@@ -26,6 +25,7 @@ public class employerController {
     @GetMapping
     public Iterable<employerModel> getAllEmployers() {
         return employerService.getEmployers();
+
     }
 
     // POST method to post Employers
@@ -45,6 +45,8 @@ public class employerController {
     public String employerModel  (@PathVariable(value = "id", required = false) int id){
         return employerService.deleteEmployer(id);
     } 
+
+    
 
     
 

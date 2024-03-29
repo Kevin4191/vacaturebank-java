@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -52,4 +54,12 @@ public class vacancyModel {
     @Column(name = "employers_employer_id")
     private Integer vacancyEmployersEmployerId;
 
+    // Relations
+    @ManyToOne
+    @JoinColumn(name = "employers_employer_id", referencedColumnName = "employer_id", insertable = false, updatable = false)
+    private employerModel employer;
+    
+    @ManyToOne
+    @JoinColumn(name = "branches_branch_id", referencedColumnName = "branch_id", insertable = false, updatable = false)
+    private branchModel branches;
 }
