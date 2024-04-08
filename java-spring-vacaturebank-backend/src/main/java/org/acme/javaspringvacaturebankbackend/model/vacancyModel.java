@@ -1,16 +1,10 @@
 package org.acme.javaspringvacaturebankbackend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -58,13 +52,4 @@ public class vacancyModel {
     @Column(name = "employers_employer_id")
     private Integer vacancyEmployersEmployerId;
 
-    // Relations
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonManagedReference
-    @JoinColumn(name = "employers_employer_id", insertable = false, updatable = false) 
-    private employerModel employer;
-    
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "branches_branch_id", referencedColumnName = "branch_id", insertable = false, updatable = false)
-    private branchModel branches;
 }

@@ -65,7 +65,7 @@ public class vacancyService {
       if (existingVacancy.isPresent()) {
         fields.forEach((key, value) -> { // Map through fields
           Field field = ReflectionUtils.findField(vacancyModel.class, key);
-          if ((key.toString() != "vacancyBranchesBranchId") && (key.toString() != "vacancyvacancysvacancyId")
+          if ((key.toString() != "vacancyBranchesBranchId") && (key.toString() != "vacancyEmployersEmployerId")
               && (key.toString() != "vacancyId") && (!StringUtils.isAlphaSpace(value.toString()))) {
             throw new IllegalArgumentException("Field cannot contain numbers or special characters" + key.toString()
                 + (StringUtils.isAlphaSpace(value.toString())));
@@ -101,4 +101,5 @@ public class vacancyService {
     return "Vacancy deleted succesfully";
 
   }
+
 }
