@@ -26,6 +26,4 @@ public class employeeModel {
     private int employeeId;
     @Column(name = "employee_location")
     private String employeeLocation;
-
-    
 }
