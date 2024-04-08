@@ -3,7 +3,6 @@ package org.acme.javaspringvacaturebankbackend.service;
 import java.lang.reflect.Field;
 import java.util.Map;
 import java.util.Optional;
-
 import org.acme.javaspringvacaturebankbackend.model.employerModel;
 import org.acme.javaspringvacaturebankbackend.repository.employerRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -87,8 +86,6 @@ public class employerService {
     } catch (Exception e) {
       throw new IllegalArgumentException(e);
     }
-    
 
   }
-
 }

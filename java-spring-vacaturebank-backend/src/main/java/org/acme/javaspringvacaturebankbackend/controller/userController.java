@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
 @RestController
 @RequestMapping(value = "/api/v1/users")
 public class userController {
+
     @Autowired
     private userService userService;
 
@@ -46,8 +46,6 @@ public class userController {
         return userService.deleteUser(id);
     } 
 
-    @PatchMapping("/login")
-    public Boolean loginUser(@RequestBody Map<String, Object> fields) {
-        return userService.validateUser(fields);
-    }
+    
+
 }
