@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\org",
+    "\\src\\main\\java\\org\\acme",
+    "\\src\\main\\java\\org\\acme\\javaspringvacaturebankbackend",
+    "\\src\\main\\java\\org\\acme\\javaspringvacaturebankbackend\\model",
+    "\\src\\main\\java\\org\\acme\\javaspringvacaturebankbackend\\repository",
+    "\\src\\main\\java\\org\\acme\\javaspringvacaturebankbackend\\service"
+  ],
+  "SelectedNode": "\\src\\main\\java\\org\\acme\\javaspringvacaturebankbackend\\service\\userService.java",
+  "PreviewInSolutionExplorer": false
+}

@@ -1,8 +1,6 @@
 package org.acme.javaspringvacaturebankbackend.service;
 
 import java.lang.reflect.Field;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,6 +9,8 @@ import org.acme.javaspringvacaturebankbackend.model.userModel;
 import org.acme.javaspringvacaturebankbackend.repository.userRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
 
@@ -40,7 +40,7 @@ public class userService {
             if (!existingUser.isEmpty()) {
                 throw new IllegalArgumentException("Account is already made with entered email");
             } else {
-                user.setUserPassword(passwordHasher(user.getUserPassword()));
+                user.setUserPassword(passwordEncoder(user.getUserPassword()));
                 return userRepository.save(user);
             }
         } catch (Exception e) {
@@ -61,7 +61,7 @@ public class userService {
                         throw new IllegalArgumentException("Field cannot contain numbers or special characters");
                     } else {
                         if (key.toString() == "userPassword") {
-                            value = passwordHasher(value.toString());
+                            value = passwordEncoder(value.toString());
                             field.setAccessible(true);
                             ReflectionUtils.setField(field, existingUser.get(), value);
                         } else {
@@ -97,33 +97,46 @@ public class userService {
 
     }
 
-    private String passwordHasher(String password) {
-        try {
-            // MessageDigest instance for MD5
-            MessageDigest m = MessageDigest.getInstance("MD5");
+    // Encrypting the password on entry
+    private String passwordEncoder(String password) {
+        PasswordEncoder passwordEncoder;
+        passwordEncoder = new BCryptPasswordEncoder();
 
-            // Add plain-text password bytes to digest using MD5 update() method.
-            m.update(password.getBytes());
-
-            // Convert the hash value into bytes
-            byte[] bytes = m.digest();
-
-            // The bytes array has bytes in decimal form. Converting it into hexadecimal
-            // format
-            StringBuilder s = new StringBuilder();
-            for (int i = 0; i < bytes.length; i++) {
-                s.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-            }
-
-            // Complete hashed password in hexadecimal format
-            String encryptedpassword = s.toString();
-            
-            return encryptedpassword;
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-        return null;
+        String encodedPassword = passwordEncoder.encode(password);
+        return encodedPassword;
     }
 
+    // Validating password to succeed login
+    public boolean validateUser(Map<String, Object> fields) {
+        try {
+            final Object[] loginUsername = { null };
+            final Object[] loginPassword = { null };
+            fields.forEach((key, value) -> { // Map through fields
+                @SuppressWarnings("unused")
+                Field field = ReflectionUtils.findField(userModel.class, key);
+                if (key.toString() == "userEmail") {
+                    loginUsername[0] = value;
+                }
+                if (key.toString() == "userPassword") {
+                    loginPassword[0] = value;
+                }
+            });
+            List<userModel> existingAccounts = userRepository.validationByEmail(loginUsername[0].toString());
+
+            // check if an account exists with used email
+            if (existingAccounts.isEmpty()) {
+                return false;
+            }
+
+            userModel existingAccount = existingAccounts.get(0);
+            String hashedPassword = existingAccount.getUserPassword();
+
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            // Boolean check if the entered password matches the one linked to the email
+            return encoder.matches(loginPassword[0].toString(), hashedPassword);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
+    }
 
 }
