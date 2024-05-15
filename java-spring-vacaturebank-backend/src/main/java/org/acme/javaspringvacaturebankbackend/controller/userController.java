@@ -46,7 +46,7 @@ public class userController {
         return userService.deleteUser(id);
     } 
 
-    @PatchMapping("/login")
+    @PostMapping("/login")
     public Boolean loginUser(@RequestBody Map<String, Object> fields) {
         return userService.validateUser(fields);
     }

@@ -22,7 +22,7 @@ public class vacancyController {
     @Autowired
     private vacancyService vacancyService;
 
-    // GET Method to get all vacancies
+    // GET Method to get all vacancie
     @GetMapping
     public Iterable<vacancyModel> getAllVacancies() {
         return vacancyService.getVacancies();
