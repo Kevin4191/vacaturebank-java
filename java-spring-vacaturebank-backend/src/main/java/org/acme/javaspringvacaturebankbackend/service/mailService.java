@@ -21,8 +21,8 @@ public class mailService {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
 
-           MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-           
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+
             mimeMessageHelper.setFrom(fromMail);
             mimeMessageHelper.setTo(to);
             mimeMessageHelper.setCc(cc);
@@ -33,12 +33,12 @@ public class mailService {
                         files[i].getOriginalFilename(),
                         new ByteArrayResource(files[i].getBytes()));
             }
-          
+
             mailSender.send(mimeMessage);
             return "mail sent";
 
         } catch (Exception e) {
-            return "error sending mail: " +  e;
+            return "error sending mail: " + e;
         }
 
     }
