@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.acme.javaspringvacaturebankbackend.model.userDTO;
 import org.acme.javaspringvacaturebankbackend.model.userModel;
 import org.acme.javaspringvacaturebankbackend.repository.userRepository;
 import org.apache.commons.lang3.StringUtils;
@@ -106,37 +107,47 @@ public class userService {
         return encodedPassword;
     }
 
-    // Validating password to succeed login
-    public boolean validateUser(Map<String, Object> fields) {
+    // Map entity to DTO
+    private userDTO mapToDTO(userModel user) {
+        userDTO dto = new userDTO();
+        dto.setUserEmail(user.getUserEmail());
+        dto.setUserName(user.getUserName());
+        dto.setUserRole(userRepository.findUserRoleByEmail(user.getUserEmail()));
+        // Map other attributes
+        return dto;
+    }
+
+    // Modify the validateUser method to return a DTO
+    public userDTO validateUser(Map<String, Object> fields) {
         try {
             final Object[] loginUsername = { null };
             final Object[] loginPassword = { null };
-            fields.forEach((key, value) -> { // Map through fields
-                @SuppressWarnings("unused")
-                Field field = ReflectionUtils.findField(userModel.class, key);
-                if (key.toString() == "userEmail") {
+            fields.forEach((key, value) -> {
+                if ("userEmail".equals(key)) {
                     loginUsername[0] = value;
                 }
-                if (key.toString() == "userPassword") {
+                if ("userPassword".equals(key)) {
                     loginPassword[0] = value;
                 }
             });
+
             List<userModel> existingAccounts = userRepository.validationByEmail(loginUsername[0].toString());
 
-            // check if an account exists with used email
             if (existingAccounts.isEmpty()) {
-                return false;
+                return null;
             }
 
             userModel existingAccount = existingAccounts.get(0);
             String hashedPassword = existingAccount.getUserPassword();
 
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            // Boolean check if the entered password matches the one linked to the email
-            return encoder.matches(loginPassword[0].toString(), hashedPassword);
+            if (encoder.matches(loginPassword[0].toString(), hashedPassword)) {
+                return mapToDTO(existingAccount);
+            } else {
+                return null;
+            }
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
     }
-
 }

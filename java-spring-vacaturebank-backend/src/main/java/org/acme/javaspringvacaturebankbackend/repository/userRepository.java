@@ -16,6 +16,9 @@ public interface userRepository extends CrudRepository<userModel, Integer>, JpaS
     // Method to find user by email
     @Query("SELECT u FROM userModel u WHERE ( u.userEmail = :email) AND u.userId <> :id")
     public List<userModel> findUserByEmail(@Param("email") String email, @Param("id") Integer id);
+
+    @Query("SELECT u.userRole FROM userModel u WHERE u.userEmail = :email")
+    String findUserRoleByEmail(@Param("email") String email);
     
     @Query("SELECT u FROM userModel u WHERE (u.userEmail = :email)")
     public List<userModel> validationByEmail(@Param("email") String email);
