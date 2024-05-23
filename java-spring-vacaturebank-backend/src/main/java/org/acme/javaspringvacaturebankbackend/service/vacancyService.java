@@ -31,6 +31,16 @@ public class vacancyService {
     }
     return vacancyRepository.findAll();
   }
+    // Get by ID method
+    public Optional<vacancyModel> getVacancyById(int id) {
+      try {
+        return vacancyRepository.findById(id);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+      return vacancyRepository.findById(id);
+    }
+  
 
   // Post method
   public vacancyModel postVacancy(vacancyModel vacancy) {
