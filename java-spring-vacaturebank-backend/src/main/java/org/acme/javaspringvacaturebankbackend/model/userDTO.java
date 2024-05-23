@@ -15,4 +15,5 @@ public class userDTO {
     private String userEmail;
     private String userName;
     private String userRole;
+    private Integer employersEmployerId;
 }

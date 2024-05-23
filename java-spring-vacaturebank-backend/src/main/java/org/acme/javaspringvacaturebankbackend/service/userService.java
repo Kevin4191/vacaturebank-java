@@ -113,6 +113,7 @@ public class userService {
         dto.setUserEmail(user.getUserEmail());
         dto.setUserName(user.getUserName());
         dto.setUserRole(userRepository.findUserRoleByEmail(user.getUserEmail()));
+        dto.setEmployersEmployerId(user.getEmployersEmployerId());
         // Map other attributes
         return dto;
     }
