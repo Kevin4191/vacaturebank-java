@@ -75,14 +75,14 @@ public class vacancyService {
       if (existingVacancy.isPresent()) {
         fields.forEach((key, value) -> { // Map through fields
           Field field = ReflectionUtils.findField(vacancyModel.class, key);
-          if ((key.toString() != "vacancyBranchesBranchId") && (key.toString() != "vacancyvacancysvacancyId")
-              && (key.toString() != "vacancyId") && (!StringUtils.isAlphaSpace(value.toString()))) {
-            throw new IllegalArgumentException("Field cannot contain numbers or special characters" + key.toString()
-                + (StringUtils.isAlphaSpace(value.toString())));
-          } else {
+          // if ((key.toString() != "vacancyBranchesBranchId") && (key.toString() != "vacancyvacancysvacancyId")
+          //     && (key.toString() != "vacancyId") && (!StringUtils.isAlphaSpace(value.toString()))) {
+          //   throw new IllegalArgumentException("Field cannot contain numbers or special characters" + key.toString()
+          //       + (StringUtils.isAlphaSpace(value.toString())));
+          // } else {
             field.setAccessible(true);
             ReflectionUtils.setField(field, existingVacancy.get(), value);
-          }
+         // }
         });
         return vacancyRepository.save(existingVacancy.get());
       } else {
