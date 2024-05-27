@@ -3,7 +3,6 @@ package org.acme.javaspringvacaturebankbackend.controller;
 import java.util.Map;
 
 import org.acme.javaspringvacaturebankbackend.model.createVacancyModel;
-import org.acme.javaspringvacaturebankbackend.model.vacancyModel;
 import org.acme.javaspringvacaturebankbackend.service.createVacancyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PatchMapping;

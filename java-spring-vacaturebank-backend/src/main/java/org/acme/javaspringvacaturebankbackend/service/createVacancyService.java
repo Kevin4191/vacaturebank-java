@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.acme.javaspringvacaturebankbackend.model.createVacancyModel;
-import org.acme.javaspringvacaturebankbackend.model.vacancyModel;
 import org.acme.javaspringvacaturebankbackend.repository.createVacancyRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +48,15 @@ public class createVacancyService {
     return createVacancyRepository.save(vacancy);
   }
 
-
-    public createVacancyModel patchVacancy(int id, Map<String, Object> fields) {
+  public createVacancyModel patchVacancy(int id, Map<String, Object> fields) {
     try {
       Optional<createVacancyModel> existingVacancy = createVacancyRepository.findById(id);
       if (existingVacancy.isPresent()) {
         fields.forEach((key, value) -> { // Map through fields
           Field field = ReflectionUtils.findField(createVacancyModel.class, key);
-            field.setAccessible(true);
-            ReflectionUtils.setField(field, existingVacancy.get(), value);
-          //}
+          field.setAccessible(true);
+          ReflectionUtils.setField(field, existingVacancy.get(), value);
+          // }
         });
         return createVacancyRepository.save(existingVacancy.get());
       } else {
@@ -70,5 +68,4 @@ public class createVacancyService {
     }
 
   }
-
 }
